@@ -1,0 +1,11 @@
+python-dotenv==1.0.*
+torch==2.2.*
+transformers==4.39.*
+bitsandbytes==0.43.*
+accelerate==0.28.*
+pypdf==4.1.*
+tiktoken==0.6.*
+sentence-transformers==2.5.*
+faiss-cpu==1.8.*
+langchain==0.1.13
+streamlit==1.32.*
