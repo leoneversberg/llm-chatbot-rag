@@ -1,6 +1,14 @@
 import os
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+CACHE_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models")
+)
 
 
 class ChatModel:
@@ -10,7 +18,9 @@ class ChatModel:
             "ACCESS_TOKEN"
         )  # reads .env file with ACCESS_TOKEN=<your hugging face access token>
 
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=ACCESS_TOKEN)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_id, cache_dir=CACHE_DIR, token=ACCESS_TOKEN
+        )
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16
         )
@@ -19,6 +29,7 @@ class ChatModel:
             model_id,
             device_map="auto",
             quantization_config=quantization_config,
+            cache_dir=CACHE_DIR,
             token=ACCESS_TOKEN,
         )
         self.model.eval()

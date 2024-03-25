@@ -1,7 +1,13 @@
+import os
 import streamlit as st
 from model import ChatModel
 import rag_util
-import os
+
+
+FILES_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "files")
+)
+
 
 st.title("LLM Chatbot RAG Assistant")
 
@@ -26,15 +32,15 @@ encoder = load_encoder()
 
 def save_file(uploaded_file):
     """helper function to save documents to disk"""
-    file_path = os.path.join(os.getcwd(), "files", uploaded_file.name)
+    file_path = os.path.join(FILES_DIR, uploaded_file.name)
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
     return file_path
 
 
 with st.sidebar:
-    max_new_tokens = st.number_input("max_new_tokens", 128, 4096, 256)
-    k = st.number_input("k", 1, 30, 3)
+    max_new_tokens = st.number_input("max_new_tokens", 128, 4096, 512)
+    k = st.number_input("k", 1, 10, 3)
     uploaded_files = st.file_uploader(
         "Upload PDFs for context", type=["PDF", "pdf"], accept_multiple_files=True
     )

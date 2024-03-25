@@ -1,3 +1,4 @@
+import os
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -6,12 +7,19 @@ from langchain_community.vectorstores.utils import DistanceStrategy
 from transformers import AutoTokenizer
 
 
+CACHE_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models")
+)
+
+
 class Encoder:
     def __init__(
         self, model_name: str = "sentence-transformers/all-MiniLM-L12-v2", device="cpu"
     ):
         self.embedding_function = HuggingFaceEmbeddings(
-            model_name=model_name, model_kwargs={"device": device}
+            model_name=model_name,
+            cache_folder=CACHE_DIR,
+            model_kwargs={"device": device},
         )
 
 
