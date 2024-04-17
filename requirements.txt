@@ -1,11 +1,12 @@
-python-dotenv==1.0.*
-torch==2.2.*
-transformers==4.39.*
-bitsandbytes==0.43.*
-accelerate==0.28.*
-pypdf==4.1.*
-tiktoken==0.6.*
-sentence-transformers==2.5.*
-faiss-cpu==1.8.*
-langchain==0.1.13
-streamlit==1.29.*
+python-dotenv~=1.0.1
+torch~=2.2.2
+transformers~=4.39.3
+bitsandbytes~=0.42.0; sys_platform == 'darwin'
+bitsandbytes~=0.43.1; 'darwin' not in sys_platform 
+accelerate~=0.28.0
+pypdf~=4.1.0
+tiktoken~=0.6.0
+sentence-transformers~=2.5.1
+faiss-cpu~=1.8.0
+langchain~=0.1.16
+streamlit~=1.29.0
